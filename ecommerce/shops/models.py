@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+#from __future__ import unicode_literals
 
 from django.db import models
 from autoslug import AutoSlugField
@@ -10,7 +10,7 @@ class Shop(models.Model):
     name = models.CharField(max_length=255)
 
     def __unicode__(self):
-        return "%s" % self.name
+        return u"%s" % self.name
 
 
 class ProductClass(models.Model):
@@ -18,7 +18,7 @@ class ProductClass(models.Model):
     shop = models.ForeignKey(Shop)
 
     def __unicode__(self):
-        return "%s - %s" % (self.name, self.shop.name)
+        return u"%s - %s" % (self.name, self.shop.name)
 
 
 class ProductField(models.Model):
@@ -26,7 +26,7 @@ class ProductField(models.Model):
     product_class = models.ForeignKey(ProductClass)
 
     def __unicode__(self):
-        return "%s" % self.name
+        return u"%s" % self.name
 
 
 class Product(models.Model):
@@ -41,7 +41,7 @@ class Product(models.Model):
     properties = JSONField(load_kwargs={'object_pairs_hook': collections.OrderedDict})
 
     def __unicode__(self):
-        return "%s - %s" % (self.name, self.shop.name)
+        return u"%s - %s" % (self.name, self.shop.name)
 
 
 
