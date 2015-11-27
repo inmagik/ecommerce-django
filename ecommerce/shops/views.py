@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework import mixins
@@ -29,8 +30,8 @@ class ShopNestedViewSet(viewsets.ModelViewSet):
     
     def retrieve(self, request, pk=None, shop_pk=None):
         queryset = self.get_queryset()
-        queryset = queryset.filter(pk=pk, shop_pk=client_pk)
-        maildrop = get_object_or_404(queryset, pk=pk)
+        queryset = queryset.filter(pk=pk, shop__pk=shop_pk)
+        instance = get_object_or_404(queryset, pk=pk)
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
 
