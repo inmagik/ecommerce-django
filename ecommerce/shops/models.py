@@ -16,9 +16,13 @@ class Shop(models.Model):
 class ProductCategory(models.Model):
     shop = models.ForeignKey(Shop, related_name="product_categories")
     name = models.CharField(max_length=255)
+    order = models.IntegerField(blank=True, default=1)
 
     def __unicode__(self):
         return u"%s" % self.name    
+
+    class Meta:
+        verbose_name_plural = "Product categories"
 
 
 class ProductClass(models.Model):
@@ -32,6 +36,7 @@ class ProductClass(models.Model):
 class ProductField(models.Model):
     name = models.CharField(max_length=255)
     product_class = models.ForeignKey(ProductClass)
+    order = models.IntegerField(blank=True, default=1)
 
     def __unicode__(self):
         return u"%s" % self.name
@@ -47,6 +52,7 @@ class Product(models.Model):
     
     base_price = models.FloatField()
     properties = JSONField(load_kwargs={'object_pairs_hook': collections.OrderedDict}, null=True, blank=True)
+    order = models.IntegerField(blank=True, default=1)
 
     def __unicode__(self):
         return u"%s - %s" % (self.name, self.shop.name)
