@@ -23,6 +23,7 @@ class ProductCategory(models.Model):
 
     class Meta:
         verbose_name_plural = "Product categories"
+        ordering = ["order"]
 
 
 class ProductClass(models.Model):
@@ -45,6 +46,7 @@ class ProductField(models.Model):
 class Product(models.Model):
     shop = models.ForeignKey(Shop)
     name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
     slug = AutoSlugField(populate_from='name', unique_with=['shop__id'])
     product_category = models.ForeignKey(ProductCategory, null=True, blank=True)
     product_class = models.ForeignKey(ProductClass, null=True, blank=True)

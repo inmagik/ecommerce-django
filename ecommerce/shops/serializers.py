@@ -10,6 +10,7 @@ class ProductSerializer(serializers.ModelSerializer):
 class ProductCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductCategory
+        
 
 
 class ShopSerializer(serializers.ModelSerializer):

@@ -1,13 +1,17 @@
 from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework import mixins
+from rest_framework import filters
 from rest_framework.response import Response
 from .serializers import ShopSerializer, ProductSerializer
 from .models import Shop, Product
 
+
+
 class ShopViewSet(viewsets.ModelViewSet):
     serializer_class = ShopSerializer
     queryset = Shop.objects.all()
+
 
 class ShopNestedViewSet(viewsets.ModelViewSet):
     
@@ -31,7 +35,6 @@ class ShopNestedViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-
 class ShopViewSet(viewsets.ModelViewSet):
     serializer_class = ShopSerializer
     queryset = Shop.objects.all()
@@ -40,6 +43,8 @@ class ShopViewSet(viewsets.ModelViewSet):
 class ShopProductViewSet(ShopNestedViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('name', 'product_category')
 
 
 class ProductViewSet(viewsets.ModelViewSet):
