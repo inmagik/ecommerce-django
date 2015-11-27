@@ -32,13 +32,12 @@ class ProductField(models.Model):
 class Product(models.Model):
     shop = models.ForeignKey(Shop)
     name = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from=lambda instance: instance.name,
-        unique_with=['shop__pk'], slugify=lambda value: value.replace(' ','-'))
+    slug = AutoSlugField(populate_from='name', unique_with=['shop__id'])
     product_class = models.ForeignKey(ProductClass, null=True, blank=True)
     product_code = models.CharField(max_length=255, null=True, blank=True)
     
     base_price = models.FloatField()
-    properties = JSONField(load_kwargs={'object_pairs_hook': collections.OrderedDict})
+    properties = JSONField(load_kwargs={'object_pairs_hook': collections.OrderedDict}, null=True, blank=True)
 
     def __unicode__(self):
         return u"%s - %s" % (self.name, self.shop.name)
